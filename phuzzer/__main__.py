@@ -32,6 +32,7 @@ def main():
     parser.add_argument('-l', '--login-data', help="The json file from which to get the login information", default="")
     parser.add_argument('-c', '--afl-cores', help="Number of AFL workers to spin up.", default=1, type=int)
     parser.add_argument('-C', '--first-crash', help="Stop on the first crash.", action='store_true', default=False)
+    parser.add_argument('-cm', '--crash-mode', help="Enable crash mode", action='store_true', default=False)
     parser.add_argument('-Q', '--use-qemu', help="Use qemu to trace binary.", action='store_true', default=False)
     parser.add_argument('-t', '--timeout', help="Timeout (in seconds).", type=float, default=None)
     parser.add_argument('-i', '--ipython', help="Drop into ipython after starting the fuzzer.", action='store_true')
@@ -108,7 +109,7 @@ def main():
     print ("[*] Creating fuzzer...")
     fuzzer = Phuzzer.phactory(phuzzer_type=args.phuzzer_type,
                               target=args.binary, work_dir=args.work_dir, seeds=seeds, afl_count=args.afl_cores,
-                              create_dictionary=not args.no_dictionary, timeout=args.timeout,
+                              create_dictionary=not args.no_dictionary, timeout=args.timeout, crash_mode=args.crash_mode,
                               memory=args.memory, run_timeout=args.run_timeout, dictionary=built_dict, use_qemu=args.use_qemu,
                               resume=args.resume, target_opts=args.target_opts
                               )
